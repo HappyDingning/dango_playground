@@ -59,8 +59,12 @@ def auser_passes_test(
         @wraps(view_func)
         async def _wrapper_view(request, *args, **kwargs):
             if await test_func(await request.auser()):
-                # Note: This is the key, the view_func can be a coroutine
-                # function and it can also be a normal function.
+                # Note: This is the key, the `view_func` can be a coroutine
+                # function and it can also be a normal function. The
+                # auser_passes_test (or alogin_required) always returns
+                # a coroutine function, no matter the `view_func` is a
+                # coroutine function or not. So that the decorated
+                # `view_func` will not run in a seprate thread.
                 if iscoroutinefunction(view_func):
                     return await view_func(request, *args, **kwargs)
                 else:
