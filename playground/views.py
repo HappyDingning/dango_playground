@@ -8,8 +8,7 @@ def simple_view(request):
     '''
     Note: This decorated simple_view is not a coroutine function.
     If we run django in async mode, this view will be run in a thread,
-    this will decrease the performance. and this is different from
-    the original undecorated simple_view.
+    which is different from the original undecorated simple_view.
     '''
     return HttpResponse("Hello, world!")
 
